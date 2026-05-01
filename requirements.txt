@@ -1,15 +1,24 @@
 streamlit==1.35.0
-pandas
-numpy
+pandas==2.3.3
+numpy==1.26.4
 
+# NLP
 spacy==3.7.2
 en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1-py3-none-any.whl
 
+# ML / Embeddings
 sentence-transformers==2.7.0
 faiss-cpu==1.7.4
-rank-bm25
+rank-bm25==0.2.2
+scikit-learn==1.7.2
+torch==2.2.2
 
-scikit-learn
-torch
-PyMuPDF
-loguru
+# PDF
+PyMuPDF==1.27.2
+
+# LLM
+openai==1.30.1
+python-dotenv==1.0.1
+
+# Utils
+loguru==0.7.3
