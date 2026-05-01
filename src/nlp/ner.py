@@ -4,9 +4,15 @@ from collections import defaultdict
 from src.utils.logger import get_logger
 
 logger = get_logger()
+import spacy
+import os
 
-nlp = spacy.load("en_core_web_sm")
-
+try:
+    nlp = spacy.load("en_core_web_sm")
+except:
+    from spacy.cli import download
+    download("en_core_web_sm")
+    nlp = spacy.load("en_core_web_sm")
 
 # -----------------------------
 # CLEAN ENTITIES
