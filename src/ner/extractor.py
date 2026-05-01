@@ -3,7 +3,17 @@ from src.ner.cleaner import clean_entities
 import re
 
 # Load model once (important for performance)
-nlp = spacy.load("en_core_web_sm")
+import spacy
+
+def load_spacy_model():
+    try:
+        return spacy.load("en_core_web_sm")
+    except:
+        from spacy.cli import download
+        download("en_core_web_sm")
+        return spacy.load("en_core_web_sm")
+
+nlp = load_spacy_model()
 
 def extract_money_regex(text):
     pattern = r'[\$₹€]\s?\d+(?:,\d{3})*(?:\.\d+)?'
