@@ -6,12 +6,7 @@ from src.ner.cleaner import clean_entities
 # LOAD MODEL (SAFE FOR CLOUD)
 # -----------------------------
 def load_spacy_model():
-    try:
-        return spacy.load("en_core_web_sm")
-    except:
-        from spacy.cli import download
-        download("en_core_web_sm")
-        return spacy.load("en_core_web_sm")
+    return spacy.load("en_core_web_sm")
 
 nlp = load_spacy_model()
 
