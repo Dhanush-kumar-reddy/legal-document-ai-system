@@ -3,7 +3,7 @@ import re
 from src.ner.cleaner import clean_entities
 
 # -----------------------------
-# LOAD MODEL SAFELY (Cloud Fix)
+# LOAD MODEL (SAFE FOR CLOUD)
 # -----------------------------
 def load_spacy_model():
     try:
@@ -15,21 +15,19 @@ def load_spacy_model():
 
 nlp = load_spacy_model()
 
-
 # -----------------------------
 # MONEY REGEX
 # -----------------------------
-def extract_money_regex(text):
+def extract_money(text):
     pattern = r'[\$₹€£]\s?\d+(?:,\d{3})*(?:\.\d+)?'
     return re.findall(pattern, text)
 
-
 # -----------------------------
-# MAIN ENTITY EXTRACTION
+# MAIN FUNCTION
 # -----------------------------
 def extract_entities(text: str):
 
-    doc = nlp(text[:5000])  # performance limit
+    doc = nlp(text[:5000])
 
     entities = {
         "PERSON": set(),
@@ -39,28 +37,15 @@ def extract_entities(text: str):
         "GPE": set()
     }
 
-    # -----------------------------
-    # SPACY EXTRACTION
-    # -----------------------------
     for ent in doc.ents:
         if ent.label_ in entities:
             entities[ent.label_].add(ent.text)
 
-    # -----------------------------
-    # ADD MONEY (ONLY ONCE)
-    # -----------------------------
-    money_regex = extract_money_regex(text)
-    entities["MONEY"].update(money_regex)
+    # Add money
+    entities["MONEY"].update(extract_money(text))
 
-    # -----------------------------
-    # CLEAN (AFTER FULL EXTRACTION)
-    # -----------------------------
-    entities = {k: list(v) for k, v in entities.items()}
-
-    entities["PERSON"] = clean_entities(entities["PERSON"], "PERSON")
-    entities["ORG"] = clean_entities(entities["ORG"], "ORG")
-    entities["DATE"] = clean_entities(entities["DATE"], "DATE")
-    entities["MONEY"] = clean_entities(entities["MONEY"], "MONEY")
-    entities["GPE"] = clean_entities(entities["GPE"], "GPE")
+    # Clean
+    for key in entities:
+        entities[key] = clean_entities(list(entities[key]), key)
 
     return entities
