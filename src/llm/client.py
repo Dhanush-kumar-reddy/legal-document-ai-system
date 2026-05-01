@@ -4,6 +4,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+import os
+import streamlit as st
+
+api_key = os.getenv("OPENAI_API_KEY") or st.secrets["OPENAI_API_KEY"]
+
 class LLMClient:
     def __init__(self):
         api_key = os.getenv("OPENAI_API_KEY")
