@@ -79,7 +79,7 @@ def compute_risk(clause, domain=None):
     # -----------------------------
     # RISK FLAG (controlled impact)
     # -----------------------------
-    flag_boost = 0.22 if risk_flag else 0
+    flag_boost = 0.30 if risk_flag else 0
     score += flag_boost
     breakdown["risk_flag"] = flag_boost
 
@@ -117,7 +117,7 @@ def compute_risk(clause, domain=None):
     # IMPORTANT: NON-RISKY CLAUSE CONTROL
     # -----------------------------
     if not risk_flag:
-        score = min(score, 0.55)  # cannot become High
+        score = min(score, 0.6)  # cannot become High
         breakdown["non_risk_cap"] = True
     else:
         breakdown["non_risk_cap"] = False
@@ -130,9 +130,9 @@ def compute_risk(clause, domain=None):
     # -----------------------------
     # FINAL LEVEL (slightly stricter)
     # -----------------------------
-    if score > 0.8:
+    if score > 0.7:
         level = "High"
-    elif score > 0.55:
+    elif score > 0.5:
         level = "Medium"
     else:
         level = "Low"

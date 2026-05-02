@@ -1,0 +1,24 @@
+[
+  {
+    "text": "Employee must give 3 months notice before termination.",
+    "expected_category": "Termination",
+    "expected_risk": "Medium",
+    "questions": [
+      {
+        "q": "What is the notice period?",
+        "expected_answer": "3 months"
+      }
+    ]
+  },
+  {
+    "text": "Company may terminate employment immediately without cause.",
+    "expected_category": "Termination",
+    "expected_risk": "High",
+    "questions": [
+      {
+        "q": "Can the company terminate without cause?",
+        "expected_answer": "Yes"
+      }
+    ]
+  }
+]

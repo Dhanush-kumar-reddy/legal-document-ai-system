@@ -5,7 +5,17 @@ import streamlit as st
 
 class LLMClient:
     def __init__(self):
-        api_key = os.getenv("OPENAI_API_KEY") or st.secrets["OPENAI_API_KEY"]
+        api_key = os.getenv("OPENAI_API_KEY")
+
+        if not api_key:
+            try:
+                import streamlit as st
+                api_key = st.secrets["OPENAI_API_KEY"]
+            except:
+                pass
+
+        if not api_key:
+            raise ValueError("OPENAI_API_KEY not found")
 
         if not api_key:
             raise ValueError("OPENAI_API_KEY not found")
