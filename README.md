@@ -185,7 +185,7 @@ Final scores are normalized into:
 ## Clone Repository
 
 ```bash
-git clone <your_repo_url>
+git clone https://github.com/Dhanush-kumar-reddy/legal-document-ai-system
 cd legal-document-ai-system
 ```
 
